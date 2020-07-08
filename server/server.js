@@ -3,7 +3,7 @@ process.stdout.write("\033c");
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 
 mongoose
   .connect(process.env.DB_STRING, {
@@ -15,7 +15,7 @@ mongoose
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "https://quizappreact.netlify.app" }));
 app.use(express.json());
 
 app.use("/quiz", require("./routes/quiz"));
