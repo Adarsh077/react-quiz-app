@@ -1,0 +1,31 @@
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+	outline: 0px !important;
+	box-shadow: none !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+:root::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+:root {
+	-ms-overflow-style: none;
+	scrollbar-width: none; /* Firefox */
+}
