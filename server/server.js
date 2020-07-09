@@ -14,11 +14,20 @@ mongoose
   .catch((err) => console.log(err));
 
 const app = express();
-
-app.use(cors({ origin: "https://quizappreact.netlify.app" }));
+app.use(cors());
 app.use(express.json());
 
-app.use("/quiz", require("./routes/quiz"));
+var whitelist = ["https://quizappreact.netlify.app/", "http://localhost:3000"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+app.use("/quiz", cors(corsOptions), require("./routes/quiz"));
 
 app.use((err, req, res, next) =>
   res.send({ status: "fail", err: err.message })

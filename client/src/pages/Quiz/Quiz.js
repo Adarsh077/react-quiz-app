@@ -76,6 +76,10 @@ export default class Quiz extends Component {
 			.catch(err => console.log(err));
 	};
 
+	handleTimeOut = () => {
+		this.setState({ confirmModalOpen: true }, this.handleAnswerSubmit);
+	};
+
 	render() {
 		const {
 			questions,
@@ -107,7 +111,7 @@ export default class Quiz extends Component {
 					<Timer
 						className='px-3 mb-5'
 						questionEndTime={question.endTime}
-						totalTimeOut={() => console.log('timeout')}
+						totalTimeOut={this.handleTimeOut}
 					/>
 				</MDBCol>
 

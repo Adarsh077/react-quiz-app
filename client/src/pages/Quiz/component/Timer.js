@@ -7,7 +7,7 @@ export default class Timer extends Component {
 
 		const seconds = (props.questionEndTime - new Date()) / 1000;
 		this.state = {
-			totalTimeLeft: 180 * 15,
+			totalTimeLeft: 10,
 			endTime: Math.round(seconds),
 			endTimeId: null,
 		};
