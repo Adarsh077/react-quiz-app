@@ -5,12 +5,18 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const DB_STRING =
+  process.env.NODE_ENV === "production"
+    ? process.env.DB_STRING
+    : process.env.DEV_DB_STRING;
+
 mongoose
-  .connect(process.env.DB_STRING, {
+  .connect(DB_STRING, {
+    dbName: "reactquiz",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Database connected!"))
+  .then(() => console.log(`Database connected to ${DB_STRING}`))
   .catch((err) => console.log(err));
 
 const app = express();
@@ -27,10 +33,12 @@ var corsOptions = {
     }
   },
 };
+
 app.use("/quiz", cors(corsOptions), require("./routes/quiz"));
 
-app.use((err, req, res, next) =>
-  res.send({ status: "fail", err: err.message })
+app.use(
+  (err, req, res, next) =>
+    console.log(err) || res.send({ status: "fail", err: err.message })
 );
 
 const PORT = process.env.PORT || 8000;

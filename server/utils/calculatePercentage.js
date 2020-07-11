@@ -6,19 +6,30 @@ const calculatePercentage = async (answers) => {
   questions = questions.questions;
 
   let totalPerc = 0;
+  const wrongAnswers = [];
   const percentagePerQuestion = 100 / questions.length;
 
-  answers.forEach((question) => {
-    const idx = questions.findIndex(
-      (ques) => ques._id.toString() === question._id
+  questions.forEach((question) => {
+    const idx = answers.findIndex(
+      (answer) => answer._id === question._id.toString()
     );
+    if (idx === -1) {
+      return wrongAnswers.push({
+        _id: question._id,
+        answer: question.options[question.answer],
+      });
+    }
 
-    const answerIdx = questions[idx].answer;
-    if (questions[idx].options[answerIdx] === question.answer) {
+    if (question.options[question.answer] === answers[idx].answer) {
       totalPerc += percentagePerQuestion;
+    } else {
+      wrongAnswers.push({
+        _id: question._id,
+        answer: question.options[question.answer],
+      });
     }
   });
-  return Math.round(totalPerc);
+  return { percentage: Math.round(totalPerc), wrongAnswers };
 };
 
 module.exports = calculatePercentage;

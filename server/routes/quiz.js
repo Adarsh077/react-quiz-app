@@ -24,8 +24,8 @@ Router.post("/", async (req, res, next) => {
     if (!answers || !name || !email)
       throw new Error("Answer, name, email is required");
 
-    const perc = await calculatePerc(answers);
-    generateCertificate(name, perc)
+    const result = await calculatePerc(answers);
+    generateCertificate(name, result.percentage)
       .then(async (stream) => {
         const mailOptions = {
           to: email,
@@ -41,7 +41,7 @@ Router.post("/", async (req, res, next) => {
         await sendMail(mailOptions);
         res.send({
           status: "success",
-          data: "Mail sent",
+          data: { ...result },
         });
       })
       .catch((err) => next(err, req, res));
