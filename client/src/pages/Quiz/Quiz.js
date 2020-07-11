@@ -67,9 +67,11 @@ export default class Quiz extends Component {
 			.then(res => {
 				if (res.status === 'success')
 					this.props.history.push({
-						pathname: '/submitted',
+						pathname: '/results',
 						state: {
 							email: this.props.location.state.email,
+							questions: this.state.questions,
+							...res.data,
 						},
 					});
 			})

@@ -7,9 +7,10 @@ export default class Timer extends Component {
 
 		const seconds = (props.questionEndTime - new Date()) / 1000;
 		this.state = {
-			totalTimeLeft: 10,
+			totalTimeLeft: 180 * 15,
 			endTime: Math.round(seconds),
 			endTimeId: null,
+			totalTimeId: null,
 		};
 	}
 
@@ -21,13 +22,9 @@ export default class Timer extends Component {
 				clearInterval(id);
 				return this.props.totalTimeOut();
 			}
-			this.setState({ totalTimeLeft: totalTimeLeft - 1 });
+			this.setState({ totalTimeLeft: totalTimeLeft - 1, totalTimeId: id });
 		}, 1000);
 		this.restartQuestionCountdown();
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.state.endTimeId);
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -44,6 +41,11 @@ export default class Timer extends Component {
 			this.setState({ endTime: Math.round(seconds) });
 			this.restartQuestionCountdown();
 		}
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.state.endTimeId);
+		clearInterval(this.state.totalTimeId);
 	}
 
 	restartQuestionCountdown = () => {

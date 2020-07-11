@@ -9,6 +9,7 @@ import {
 } from 'mdbreact';
 
 import validateEmail from '../../utils/validateEmail';
+import { StepsModal } from '../../components';
 
 const Input = props => {
 	const { err, className, icon, ...rest } = props;
@@ -28,6 +29,7 @@ export default function JoinForm(props) {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [errors, setErrors] = useState({});
+	const [modal, setModal] = useState(false);
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -40,14 +42,25 @@ export default function JoinForm(props) {
 		if (Object.keys(newErrors).length > 0) return setErrors(newErrors);
 		setErrors({});
 
+		setModal(true);
+	};
+
+	const handleModalSubmit = () => {
 		props.history.push({
 			pathname: '/quiz',
 			state: { name, email },
 		});
 	};
 
+	const toggleModal = () => setModal(!modal);
+
 	return (
 		<MDBContainer>
+			<StepsModal
+				isOpen={modal}
+				toggle={toggleModal}
+				handleSubmit={handleModalSubmit}
+			/>
 			<MDBRow>
 				<MDBCol md='6' className='mx-auto'>
 					<MDBCard className='mt-5 p-3 p-md-5'>

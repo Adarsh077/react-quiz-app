@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { JoinForm, Quiz, Submitted } from './pages';
+import { JoinForm, Quiz, Results } from './pages';
 import { Navbar } from './components';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 			<Switch>
 				<Route path='/join-form' component={JoinForm} />
 				<Route path='/quiz' component={Quiz} />
-				<Route path='/submitted' component={Submitted} />
+				<Route path='/results' component={Results} />
 				<Redirect from='/' to='/join-form' />
 			</Switch>
 		</div>
