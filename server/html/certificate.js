@@ -35,7 +35,7 @@ module.exports = (name, perc) => `<center>
 		<br /><br />
 		<span style="font-size: 30px;">${perc}%</span> <br /><br />
 		<span style="font-size: 20px;"
-			>in <a href="https://reactquiz.netlify.app">React Quiz App</a> </span
+			>in <a href="https://quizappreact.netlify.app">React Quiz App</a> </span
 		>
 		<br /><br /><br /><br />
 		<span style="font-size: 25px;"><i>Attempt Date</i></span
